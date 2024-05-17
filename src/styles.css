@@ -54,6 +54,9 @@ textarea {
 .mat-radio-button.mat-radio-checked{
     background-color: #c4d7c0;
 }
+.right_btn {
+    text-align: end;
+}
 .reject.mat-radio-checked {
     background-color: #ff8888;
 }
@@ -66,4 +69,20 @@ textarea {
 }
 .mat-expansion-panel-header.mat-expanded, .mat-expansion-panel-header {
     height: 30px;
+}
+mat-radio-group.mat-radio-group {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 20px;
+}
+.mat-form-field-appearance-outline .mat-form-field-outline{
+    background-color: #fff;
+}
+.matsnackbrsuccess{
+    background-color: #00800050;
+    color: #030303;
+}
+.matsnackbrerror{
+    background-color: #ff000050;
+    color: #030303;
 }

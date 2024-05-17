@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { CheckingComponent } from './checking/checking.component';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { MatRadioModule } from '@angular/material/radio';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule,MatRadioModule,
+    ReactiveFormsModule,MatRadioModule,MatSnackBarModule,
     MatInputModule,
     MatSelectModule,
     MatButtonModule,

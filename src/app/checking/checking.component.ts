@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CheckingService } from './checking.service';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-checking',
@@ -29,7 +30,11 @@ export class CheckingComponent implements OnInit {
   ];
   accordionCompletionStatus: boolean[] | any;
 
-  constructor(private fb: FormBuilder, private qcService: CheckingService) {}
+  constructor(
+    private fb: FormBuilder,
+    private qcService: CheckingService,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit() {
     this.qualityCheckForm = this.fb.group({
@@ -73,29 +78,40 @@ export class CheckingComponent implements OnInit {
   //onAccordionFinish(index: any) {
   //  this.accordionCompletionStatus[index+1] = true;
   //}
+  private configSuccess: MatSnackBarConfig = {
+    panelClass: ['matsnackbrsuccess'],
+    duration: 2000,
+  };
+
+  private configError: MatSnackBarConfig = {
+    panelClass: ['matsnackbrerror'],
+    duration: 2000,
+  };
   onAccordionFinish(index: number) {
-    this.accordionCompletionStatus[index + 1] = true;
-
-    // Disable or enable child accordions
-    const parentAccordion = document.querySelector(
-      `mat-expansion-panel[ng-reflect-accordion="${index + 1}"]`
-    );
-    if (parentAccordion) {
-      const childAccordions = parentAccordion.querySelectorAll(
-        'mat-expansion-panel'
+    console.log(index);
+    const currentAccordion = this.qualityChecks.at(index) as FormGroup;
+    if (currentAccordion.valid) {
+      this.accordionCompletionStatus[index + 1] = true;
+      this.snackBar.open(
+        'Current accordion input is complete',
+        'Ok',
+        this.configSuccess
       );
-      childAccordions.forEach((accordion: HTMLElement | any) => {
-        accordion.setAttribute(
-          'disabled',
-          `${!this.accordionCompletionStatus[index + 1]}`
-        );
-      });
+      console.log('Current accordion input is complete');
+    } else {
+      this.snackBar.open(
+        'Current accordion input is not complete',
+        'Close',
+        this.configError
+      );
+      console.log('Current accordion input is not complete');
     }
-
-    // Enable the next accordion if there's one
-    if (index + 1 < this.accordionCompletionStatus.length - 1) {
-      this.accordionCompletionStatus[index + 1 + 1] = false;
-    }
+  }
+  onChildAccordionFinish(qcIndex: any, stageIndex: any) {
+    console.log(qcIndex, stageIndex);
+    const currentAccordion: any = this.qualityChecks.at(qcIndex) as FormGroup;
+    let childcurrent = currentAccordion.at(stageIndex) as FormGroup;
+    console.log(childcurrent, currentAccordion);
   }
 
   openNextAccordion(index: number) {
