@@ -1,4 +1,4 @@
-<h1>Abs</h1>
+<h1>QC Approval Screen with Dynamic Accordions in Angular Reactive Forms</h1>
 
 <p>This project was generated with <a href="https://github.com/angular/angular-cli" target="_blank">Angular CLI</a> version 15.2.4.</p>
 
@@ -13,14 +13,6 @@
 <h2>Build</h2>
 
 <p>Run <code>ng build</code> to build the project. The build artifacts will be stored in the <code>dist/</code> directory.</p>
-
-<h2>Running unit tests</h2>
-
-<p>Run <code>ng test</code> to execute the unit tests via <a href="https://karma-runner.github.io" target="_blank">Karma</a>.</p>
-
-<h2>Running end-to-end tests</h2>
-
-<p>Run <code>ng e2e</code> to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.</p>
 
 <h2>Further help</h2>
 

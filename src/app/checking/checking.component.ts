@@ -92,7 +92,7 @@ export class CheckingComponent implements OnInit {
         // Initialize child accordion completion status for the stage
         this.childaccordionCompletionStatus[qcIndex][stageIndex] =
           stageIndex === 0 && qcIndex == 0;
-        console.log(this.childaccordionCompletionStatus);
+        //console.log(this.childaccordionCompletionStatus);
       });
 
       // Push the quality check form group to the qualityChecks form array
@@ -111,33 +111,33 @@ export class CheckingComponent implements OnInit {
     if (currentAccordion.valid) {
       // Set completion status to true if valid
       this.childaccordionCompletionStatus[index + 1][num] = true;
-      console.log(`Accordion ${index} is complete`);
+      //console.log(`Accordion ${index} is complete`);
     } else {
       // Set completion status to false if invalid
       this.childaccordionCompletionStatus[index + 1][num] = false;
-      console.log(`Accordion ${index} is not complete`);
+      //console.log(`Accordion ${index} is not complete`);
     }
   }
 
   // Handle completion of child accordion
   onChildAccordionFinish(qcIndex: number, stageIndex: number) {
-    console.log(qcIndex, stageIndex);
+    //console.log(qcIndex, stageIndex);
     const currentAccordion = this.qualityChecks.at(qcIndex) as FormGroup;
     const stages = currentAccordion.get('stages') as FormArray;
     const childCurrent = stages.at(stageIndex) as FormGroup;
-    console.log(childCurrent, currentAccordion);
+    //console.log(childCurrent, currentAccordion);
 
     if (childCurrent.valid) {
       // Set child accordion completion status to true if valid
       this.childaccordionCompletionStatus[qcIndex][stageIndex] = true;
-      console.log(`Stage ${stageIndex} of QC ${qcIndex} is complete`);
+      //console.log(`Stage ${stageIndex} of QC ${qcIndex} is complete`);
 
       // If there's a next stage, enable it
       if (stageIndex < stages.length - 1) {
         this.childaccordionCompletionStatus[qcIndex][stageIndex + 1] = true;
       }
     } else {
-      console.log(`Stage ${stageIndex} of QC ${qcIndex} is not complete`);
+      //console.log(`Stage ${stageIndex} of QC ${qcIndex} is not complete`);
     }
   }
   finaldata: any; // Declare a variable to store the final form data
@@ -145,8 +145,8 @@ export class CheckingComponent implements OnInit {
   onSubmit() {
     // Check if the form is valid
     if (this.qualityCheckForm.valid) {
-      // Log the form value to the console
-      console.log(this.qualityCheckForm.value);
+      // Log the form value to the //console
+      //console.log(this.qualityCheckForm.value);
 
       // Store the form value in finaldata
       this.finaldata = this.qualityCheckForm.value;
@@ -159,16 +159,16 @@ export class CheckingComponent implements OnInit {
           this.snackBar.open('Form submitted successfully', 'Close', {
             duration: 3000,
           });
-          // Uncomment the next line to log the response to the console
-          // console.log('Form submitted successfully', response);
+          // Uncomment the next line to log the response to the //console
+          // //console.log('Form submitted successfully', response);
         },
         // Handle error response
         (error) => {
           // Show an error message using a snackbar
           // Commented out for now
           // this.snackBar.open('Error submitting form', 'Close', { duration: 3000 });
-          // Log the error to the console
-          // console.error('Error submitting form', error);
+          // Log the error to the //console
+          // //console.error('Error submitting form', error);
         }
       );
     } else {
@@ -176,8 +176,8 @@ export class CheckingComponent implements OnInit {
       this.snackBar.open('Form is invalid', 'Close', {
         duration: 3000,
       });
-      // Uncomment the next line to log a message to the console
-      // console.log('Form is invalid');
+      // Uncomment the next line to log a message to the //console
+      // //console.log('Form is invalid');
     }
   }
 }
