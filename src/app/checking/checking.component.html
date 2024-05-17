@@ -38,31 +38,26 @@
                       >Stage {{ stageIndex + 1 }}</mat-panel-title
                     >
                   </mat-expansion-panel-header>
+                  
                   <!-- Panel content -->
                   <div>
-                    <!-- Radio group for QC Status -->
-                    <mat-radio-group
-                      formControlName="qcStatus"
-                      (change)="onChildAccordionFinish(qcIndex, stageIndex)"
-                    >
-                      <mat-radio-button value="accepted"
-                        >Accept</mat-radio-button
-                      >
-                      <mat-radio-button class="reject" value="rejected"
-                        >Reject</mat-radio-button
-                      >
-                    </mat-radio-group>
-                    <!-- Rejection reason field -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>QC Status</mat-label>
+                        <mat-select formControlName="qcStatus" (selectionChange)="onChildAccordionFinish(qcIndex, stageIndex)">
+                          <mat-option value="accepted">Accepted</mat-option>
+                          <mat-option value="rejected">Rejected</mat-option>
+                      </mat-select>                      
+                    </mat-form-field>
                     <div *ngIf="stage.get('qcStatus').value === 'rejected'">
-                      <mat-form-field appearance="outline">
-                        <mat-label>Rejection Reason</mat-label>
-                        <textarea
-                          matInput
-                          formControlName="rejectionReason"
-                          placeholder="Rejection Reason"
-                        ></textarea>
-                      </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Rejection Reason</mat-label>
+                            <mat-select formControlName="rejectionReason">
+                                <mat-option value="resend">Resend</mat-option>
+                                <mat-option value="scrap">Scrap</mat-option>
+                            </mat-select>
+                        </mat-form-field>
                     </div>
+
                   </div>
                 </mat-expansion-panel>
               </div>

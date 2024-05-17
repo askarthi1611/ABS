@@ -121,7 +121,7 @@ export class CheckingComponent implements OnInit {
 
   // Handle completion of child accordion
   onChildAccordionFinish(qcIndex: number, stageIndex: number) {
-    //console.log(qcIndex, stageIndex);
+    console.log(qcIndex, stageIndex);
     const currentAccordion = this.qualityChecks.at(qcIndex) as FormGroup;
     const stages = currentAccordion.get('stages') as FormArray;
     const childCurrent = stages.at(stageIndex) as FormGroup;
