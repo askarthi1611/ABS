@@ -1,18 +1,24 @@
 <form [formGroup]="qualityCheckForm" (ngSubmit)="onSubmit()">
+  <!-- Mat-accordion container -->
   <mat-accordion>
+    <!-- Iterate over each quality check -->
     <div formArrayName="qualityChecks">
       <div
         *ngFor="let qc of qualityChecks.controls; let qcIndex = index"
         [formGroupName]="qcIndex"
       >
-        <mat-expansion-panel [disabled]="!accordionCompletionStatus[qcIndex]">
+        <!-- Mat-expansion-panel for each quality check -->
+        <mat-expansion-panel
+          [disabled]="!childaccordionCompletionStatus[qcIndex][0]"
+        >
+          <!-- Expansion panel header -->
           <mat-expansion-panel-header>
-            <mat-panel-title>
-              {{ qc.value.name }}
-            </mat-panel-title>
+            <mat-panel-title>{{ qc.value.name }}</mat-panel-title>
           </mat-expansion-panel-header>
           <div formArrayName="stages">
+            <!-- Mat-accordion container for stages -->
             <mat-accordion>
+              <!-- Iterate over each stage -->
               <div
                 *ngFor="
                   let stage of qc.get('stages').controls;
@@ -20,16 +26,25 @@
                 "
                 [formGroupName]="stageIndex"
               >
+                <!-- Mat-expansion-panel for each stage -->
                 <mat-expansion-panel
-                  
+                  [disabled]="
+                    !childaccordionCompletionStatus[qcIndex][stageIndex]
+                  "
                 >
+                  <!-- Expansion panel header for stage -->
                   <mat-expansion-panel-header>
-                    <mat-panel-title>
-                      Stage {{ stageIndex + 1 }}
-                    </mat-panel-title>
+                    <mat-panel-title
+                      >Stage {{ stageIndex + 1 }}</mat-panel-title
+                    >
                   </mat-expansion-panel-header>
+                  <!-- Panel content -->
                   <div>
-                    <mat-radio-group formControlName="qcStatus">
+                    <!-- Radio group for QC Status -->
+                    <mat-radio-group
+                      formControlName="qcStatus"
+                      (change)="onChildAccordionFinish(qcIndex, stageIndex)"
+                    >
                       <mat-radio-button value="accepted"
                         >Accept</mat-radio-button
                       >
@@ -37,6 +52,7 @@
                         >Reject</mat-radio-button
                       >
                     </mat-radio-group>
+                    <!-- Rejection reason field -->
                     <div *ngIf="stage.get('qcStatus').value === 'rejected'">
                       <mat-form-field appearance="outline">
                         <mat-label>Rejection Reason</mat-label>
@@ -48,31 +64,21 @@
                       </mat-form-field>
                     </div>
                   </div>
-                  <div class="right_btn">
-                    <button
-                    (click)="onChildAccordionFinish(qcIndex,stageIndex)"
-                    mat-raised-button
-                    color="primary"
-                  >
-                    Next
-                  </button></div>
                 </mat-expansion-panel>
-
-              </div></mat-accordion
-            >
+              </div>
+            </mat-accordion>
           </div>
-          <div class="right_btn">
-            <button
-            (click)="onAccordionFinish(qcIndex)"
-            mat-raised-button
-            color="primary"
-          >
-            Submit
-          </button></div>
         </mat-expansion-panel>
       </div>
     </div>
   </mat-accordion>
+  <!-- Submit button -->
   <div class="right_btn">
-    <button type="submit" mat-raised-button color="primary">Submit</button></div>
+    <button type="submit" mat-raised-button color="primary">Submit</button>
+  </div>
+  <!-- Display final form data -->
+  <pre *ngIf="finaldata" style="background-color: #030303; color: #f5f5f5;padding: 5px;">
+{{ finaldata | json }}
+    </pre
+  >
 </form>

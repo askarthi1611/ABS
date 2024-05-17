@@ -9,6 +9,7 @@ export class CheckingService {
   constructor(private http: HttpClient) { }
 
   submitQualityCheck(data: any) {
-    return this.http.post('YOUR_API_ENDPOINT', data);
+    console.log(data);
+    return this.http.post('', data);
   }
 }
